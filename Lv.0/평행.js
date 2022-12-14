@@ -14,19 +14,25 @@ dots의 원소는 [x, y] 형태이며 x, y는 정수.
 임의의 두 점을 이은 직선이 x축 또는 y축과 평행한 경우는 주어지지 않음.
 */
 function solution(dots) {
-  let answer = 0;
+  let answer = 0; // 리턴값 초기화.
+  // 4개의 점으로 나오는 선분의 경우의 수는 3.
+  // 3개의 경우의 수를 만드는 for loop.
   for (i = 1; i < 4; i++) {
-    const dotsCopy = dots.slice(0, 4); // 참조형 데이터 복사.
-    const segment1 = dotsCopy.splice(i, 1);
-    segment1.push(dotsCopy.shift());
-    const segment2 = dotsCopy;
+    // slice() 메서드를 이용해 참조형 데이터 복사.
+    const dotsCopy = dots.slice(0, 4); // index 0 부터 4개.
+    const segment1 = dotsCopy.splice(i, 1); // 선분1. splice() 메서드로 빼내기.
+    segment1.push(dotsCopy.shift()); // shift() 메서드로 빼내기.
+    const segment2 = dotsCopy; // 선분2. 선분1로 빼내고 남은 데이터.
+    // 선분1의 기울기.
     const segment1Slope =
       (segment1[0][1] - segment1[1][1]) / (segment1[0][0] - segment1[1][0]);
+    // 선분2의 기울기.
     const segment2Slope =
       (segment2[0][1] - segment2[1][1]) / (segment2[0][0] - segment2[1][0]);
+    // 선분1과 선분2를 비교하는 조건문.
     if (segment1Slope === segment2Slope) {
       answer = 1;
-      break;
+      break; // 카운팅이 아닌 단순 1출력이기 때문에 break로 불필요한 연산 줄이기.
     }
   }
   return answer;
